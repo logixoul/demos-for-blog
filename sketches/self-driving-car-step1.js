@@ -6,12 +6,15 @@ function calcSpline(s, t) {
     const t2 = t * t; // t на квадрат
     const t3 = t * t * t; // t на трета степен
 
-    const valueAt0Equals1 = 2 * t3 - 3 * t2 + 1;
-    const derAt0Equals1 = t3 - 2 * t2 + t;
-    const valueAt1Equals1 = -2 * t3 + 3 * t2;
-    const derAt1Equals1 = t3 - t2;
+    const functionThatStartsWith1 = 2 * t3 - 3 * t2 + 1;
+    const functionThatStartsWithSlope1 = t3 - 2 * t2 + t;
+    const functionThatStartsWith0 = -2 * t3 + 3 * t2;
+    const functionThatStartsWithSlope0 = t3 - t2;
 
-    return valueAt0Equals1 * s.valueAt0 + derAt0Equals1 * s.derAt0 + valueAt1Equals1 * s.valueAt1 + derAt1Equals1 * s.derAt1;
+    return functionThatStartsWith1 * s.valueAt0 +
+        functionThatStartsWithSlope1 * s.derAt0 +
+        functionThatStartsWith0 * s.valueAt1 +
+        functionThatStartsWithSlope0 * s.derAt1;
 }
 
 function setup() {
