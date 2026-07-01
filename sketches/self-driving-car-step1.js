@@ -8,13 +8,13 @@ function calcSpline(s, t) {
 
     const functionThatStartsWith1 = 2 * t3 - 3 * t2 + 1;
     const functionThatStartsWithSlope1 = t3 - 2 * t2 + t;
-    const functionThatStartsWith0 = -2 * t3 + 3 * t2;
-    const functionThatStartsWithSlope0 = t3 - t2;
+    const functionThatEndsWith1 = -2 * t3 + 3 * t2;
+    const functionThatEndsWithSlope0 = t3 - t2;
 
     return functionThatStartsWith1 * s.valueAt0 +
         functionThatStartsWithSlope1 * s.derAt0 +
-        functionThatStartsWith0 * s.valueAt1 +
-        functionThatStartsWithSlope0 * s.derAt1;
+        functionThatEndsWith1 * s.valueAt1 +
+        functionThatEndsWithSlope0 * s.derAt1;
 }
 
 function setup() {
