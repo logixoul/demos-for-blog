@@ -1,14 +1,16 @@
 let data = [];
 
-// function to calculate horizontal scale
+// изчислява хоризонталното мащабиране
 function hScale() {
     return width / data.length;
 }
-// function to calculate vertical offset for centering
+// изчислява вертикалното отместване за центриране
 function vCenter() {
     return height / 2;
 }
 
+// изчертава произволна графика като серия от свързани отсечки
+// (стандартен p5.js код)
 function drawGraph(vertices) {
     stroke(180, 255, 50);
     strokeWeight(2);
@@ -20,21 +22,23 @@ function drawGraph(vertices) {
     endShape();
     fill(0, 0, 0, 128);
     stroke(255, 255, 255, 128);
-    for (let i = 1; i < data.length - 2; i++) {
+    for (let i = 1; i < data.length - 1; i++) {
         circle(i * hScale(), vCenter() + data[i], 10);
     }
 }
 
+// изчислява стойността на сплайн функцията
 function calcSpline(s, t) {
-    const t2 = t * t;
-    const t3 = t * t * t;
+    const t2 = t * t; // t на квадрат
+    const t3 = t * t * t; // t на трета степен
 
-    const h00 = 2 * t3 - 3 * t2 + 1;
-    const h10 = t3 - 2 * t2 + t;
-    const h01 = -2 * t3 + 3 * t2;
-    const h11 = t3 - t2;
+    const valueAt0Provider = 2 * t3 - 3 * t2 + 1;
+    const derAt0Provider = t3 - 2 * t2 + t;
+    const valueAt1Provider = -2 * t3 + 3 * t2;
+    const derAt1Provider = t3 - t2;
 
-    return h00 * s.valueAt0 + h10 * s.derAt0 + h01 * s.valueAt1 + h11 * s.derAt1;
+
+    return valueAt0Provider * s.valueAt0 + derAt0Provider * s.derAt0 + valueAt1Provider * s.valueAt1 + derAt1Provider * s.derAt1;
 }
 
 function setup() {
