@@ -28,7 +28,6 @@ function calcSpline(s, t) {
     const t2 = t * t; // t на квадрат
     const t3 = t * t * t; // t на трета степен
 
-
     const valueAt0Basis = 2 * t3 - 3 * t2 + 1;
     const derAt0Basis = t3 - 2 * t2 + t;
     const valueAt1Basis = -2 * t3 + 3 * t2;
@@ -77,4 +76,3 @@ function mouseDragged() {
     let index = Math.round(mouseX / hScale());
     data[index] = mouseY - vCenter();
 }
-</s

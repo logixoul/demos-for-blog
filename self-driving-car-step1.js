@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/p5@2.x/lib/p5.min.js"></script>
-</head>
-<body>
-<script type="text/javascript">
-
 let startPos, destDir;
 let splineX, splineY;
 
@@ -61,6 +52,3 @@ function mousePressed() {
     }
     endShape();
 }
-</script>
-</body>
-</html>

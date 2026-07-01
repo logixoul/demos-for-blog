@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <script type="text/javascript">
+                function main() {
+                    const sketches = [
+                        "self-driving-car-step1",
+                        "self-driving-car",
+                        "array-interpolation-1d"
+                    ];
+                    for (const sketch of sketches) {
+                        document.getElementById("sketchSelect").insertAdjacentHTML("beforeend",
+                            `<li><a href="sketch-loader.html?sketch=${sketch}">${sketch}</a></li>`);
+                    }
+                }
+                document.addEventListener("DOMContentLoaded", main);
+            </script>
+        </head>
+        <body>
+            Select a sketch:
+            <ul id="sketchSelect">
+            </ul>
+        </body>
+    
+</html>

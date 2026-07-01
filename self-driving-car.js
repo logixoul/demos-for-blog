@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@2.x/lib/p5.min.js"></script>
-</head>
-
-<body>
-    <script type="text/javascript">
 let destPos, destDir;
 let splineX, splineY;
 let interpCoef = 0.0;
@@ -74,6 +65,3 @@ function mousePressed() {
     destDir = newDestDir;
     interpCoef = 0.0;
 }
-</script>
-</body>
-</html>
