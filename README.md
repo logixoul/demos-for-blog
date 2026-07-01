@@ -1,1 +1,1 @@
-Note: I'm using VSCode with the p5-live extension. It auto-reloads the preview on save AND on editing literals (it's sort of magical!)
+Note: I'm using VSCode with the Live Server extension.

@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/p5@2.x/lib/p5.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
 let startPos, destDir;
 let splineX, splineY;
 
@@ -17,24 +26,9 @@ function calcSpline(s, t) {
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
-    imageMode(CENTER);
     startPos = createVector(0, 0);
     destDir = createVector(0, 0);
-}
-
-function draw() {
     background(100);
-    if (splineX) {
-        noFill();
-        beginShape();
-        for(let coef = 0; coef < 1; coef += .01) {
-            const pos = createVector(
-                calcSpline(splineX, coef),
-                calcSpline(splineY, coef));
-            vertex(pos.x, pos.y);
-        }
-        endShape();
-    }
 }
 
 function mousePressed() {
@@ -55,5 +49,20 @@ function mousePressed() {
     };
     startPos = newDestPos;
     destDir = newDestDir;
-    interpCoef = 0.0;
+
+    noFill();
+    stroke("white");
+    beginShape();
+    for (let coef = 0; coef < 1; coef += .01) {
+        const pos = createVector(
+            calcSpline(splineX, coef),
+            calcSpline(splineY, coef));
+        vertex(pos.x, pos.y);
+    }
+    endShape();
+
 }
+
+</script>
+</body>
+</html>

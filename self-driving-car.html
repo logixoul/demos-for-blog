@@ -1,8 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@2.x/lib/p5.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
 let destPos, destDir;
 let splineX, splineY;
 let interpCoef = 0.0;
 let carImage;
 let carPos;
+let carAngle;
 
 // изчислява стойността на сплайн функцията
 function calcSpline(s, t) {
@@ -17,13 +27,13 @@ function calcSpline(s, t) {
     return valueAt0Basis * s.valueAt0 + derAt0Basis * s.derAt0 + valueAt1Basis * s.valueAt1 + derAt1Basis * s.derAt1;
 }
 
-function setup() {
+async function setup() {
     createCanvas(windowWidth, windowHeight);
 
     imageMode(CENTER);
     destPos = createVector(0, 0);
     destDir = createVector(0, 0);
-    carImage = loadImage(MEDIA_FOLDER + '/car.png');
+    carImage = await loadImage('./car.png');
 }
 
 function draw() {
@@ -64,3 +74,6 @@ function mousePressed() {
     destDir = newDestDir;
     interpCoef = 0.0;
 }
+</script>
+</body>
+</html>
