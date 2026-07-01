@@ -4,6 +4,7 @@ let data = [];
 function hScale() {
     return width / data.length;
 }
+
 // изчислява вертикалното отместване за центриране
 function vCenter() {
     return height / 2;
@@ -12,19 +13,14 @@ function vCenter() {
 // изчертава произволна графика като серия от свързани отсечки
 // (стандартен p5.js код)
 function drawGraph(vertices) {
-    stroke(180, 255, 50);
-    strokeWeight(2);
-    noFill();
-    beginShape();
-    for (const v of vertices) {
-        vertex(v.x, v.y);
+    stroke(180, 255, 50); // цвят на линията
+    strokeWeight(2); // дебелина на линията
+    noFill(); // линията не описва многоъгълник, който да искаме да се запълва
+    beginShape(); // започваме да пращаме серията от точки
+    for (const v of vertices) { // за всяка точка
+        vertex(v.x, v.y); // пращаме тази точка
     }
-    endShape();
-    fill(0, 0, 0, 128);
-    stroke(255, 255, 255, 128);
-    for (let i = 1; i < data.length - 1; i++) {
-        circle(i * hScale(), vCenter() + data[i], 10);
-    }
+    endShape(); // приключваме със серията от точки
 }
 
 // изчислява стойността на сплайн функцията
@@ -32,13 +28,14 @@ function calcSpline(s, t) {
     const t2 = t * t; // t на квадрат
     const t3 = t * t * t; // t на трета степен
 
-    const valueAt0Provider = 2 * t3 - 3 * t2 + 1;
-    const derAt0Provider = t3 - 2 * t2 + t;
-    const valueAt1Provider = -2 * t3 + 3 * t2;
-    const derAt1Provider = t3 - t2;
+
+    const valueAt0Basis = 2 * t3 - 3 * t2 + 1;
+    const derAt0Basis = t3 - 2 * t2 + t;
+    const valueAt1Basis = -2 * t3 + 3 * t2;
+    const derAt1Basis = t3 - t2;
 
 
-    return valueAt0Provider * s.valueAt0 + derAt0Provider * s.derAt0 + valueAt1Provider * s.valueAt1 + derAt1Provider * s.derAt1;
+    return valueAt0Basis * s.valueAt0 + derAt0Basis * s.derAt0 + valueAt1Basis * s.valueAt1 + derAt1Basis * s.derAt1;
 }
 
 function setup() {
@@ -67,6 +64,13 @@ function draw() {
     background(100);
 
     drawGraph(vertices);
+
+    // чертаем контролните кръгчета
+    fill(0, 0, 0, 128); // вътрешен цвят на кръгчетата
+    stroke(250, 255, 255, 128); // цвят на ръба на кръгчетата
+    for (let i = 1; i < data.length - 1; i++) { // за всяко кръгче
+        circle(i * hScale(), vCenter() + data[i], 10); // изчертаваме това кръгче
+    }
 }
 
 function mouseDragged() {
