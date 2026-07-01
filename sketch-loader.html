@@ -2,7 +2,13 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        html, body {
+            margin: 0px;
+            overflow: hidden;
+        }
+    </style>
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/p5@2.x/lib/p5.min.js"></script>
 </head>
 
@@ -11,7 +17,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const myParam = urlParams.get('sketch');
         const scriptElement = document.createElement('script');
-        scriptElement.src = myParam + '.js';
+        scriptElement.src = "sketches/" + myParam + ".js";
         document.body.appendChild(scriptElement);
     </script>
 </body>

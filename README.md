@@ -1,1 +1,1 @@
-Note: I'm using VSCode with the Live Server extension.
+Note: I'm using VSCode with the Live Preview extension.
