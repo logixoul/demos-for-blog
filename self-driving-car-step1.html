@@ -15,12 +15,12 @@ function calcSpline(s, t) {
     const t2 = t * t; // t на квадрат
     const t3 = t * t * t; // t на трета степен
 
-    const valueAt0Basis = 2 * t3 - 3 * t2 + 1;
-    const derAt0Basis = t3 - 2 * t2 + t;
-    const valueAt1Basis = -2 * t3 + 3 * t2;
-    const derAt1Basis = t3 - t2;
+    const valueAt0Equals1 = 2 * t3 - 3 * t2 + 1;
+    const derAt0Equals1 = t3 - 2 * t2 + t;
+    const valueAt1Equals1 = -2 * t3 + 3 * t2;
+    const derAt1Equals1 = t3 - t2;
 
-    return valueAt0Basis * s.valueAt0 + derAt0Basis * s.derAt0 + valueAt1Basis * s.valueAt1 + derAt1Basis * s.derAt1;
+    return valueAt0Equals1 * s.valueAt0 + derAt0Equals1 * s.derAt0 + valueAt1Equals1 * s.valueAt1 + derAt1Equals1 * s.derAt1;
 }
 
 function setup() {
@@ -34,7 +34,7 @@ function setup() {
 function mousePressed() {
     const newDestPos = createVector(mouseX, mouseY);
     const offset = p5.Vector.sub(newDestPos, startPos);
-    const newDestDir = p5.Vector.mult(offset, 2.0);
+    const newDestDir = p5.Vector.mult(offset, 1.0);
     splineX = {
         valueAt0: startPos.x,
         valueAt1: newDestPos.x,
@@ -60,9 +60,7 @@ function mousePressed() {
         vertex(pos.x, pos.y);
     }
     endShape();
-
 }
-
 </script>
 </body>
 </html>
