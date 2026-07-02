@@ -1,57 +1,65 @@
-let startPos, destDir;
+let startPos, startDir;
 let splineX, splineY;
 
 // изчислява стойността на сплайн функцията
-function calcSpline(s, t) {
-    const t2 = t * t; // t на квадрат
-    const t3 = t * t * t; // t на трета степен
+function calcSpline(sp, x) {
+    const a = 2 * sp.valueAt0 - 2 * sp.valueAt1 + sp.derAt0 + sp.derAt1;
+    const b = -3 * sp.valueAt0 + 3 * sp.valueAt1 - 2 * sp.derAt0 - sp.derAt1;
+    const c = sp.derAt0;
+    const d = sp.valueAt0;
+    return a * pow(x, 3) + b * pow(x, 2) + c * x + d;
+}
 
-    const functionThatStartsWith1 = 2 * t3 - 3 * t2 + 1;
-    const functionThatStartsWithSlope1 = t3 - 2 * t2 + t;
-    const functionThatEndsWith1 = -2 * t3 + 3 * t2;
-    const functionThatEndsWithSlope0 = t3 - t2;
-
-    return functionThatStartsWith1 * s.valueAt0 +
-        functionThatStartsWithSlope1 * s.derAt0 +
-        functionThatEndsWith1 * s.valueAt1 +
-        functionThatEndsWithSlope0 * s.derAt1;
+function drawSpline(spX, spY) {
+    // линията не описва многоъгълник, който да искаме да се запълва
+    noFill();
+    // цвят на линията
+    stroke("white");
+    // започваме да пращаме серията от точки
+    beginShape();
+    // циклим по дефиниционната ни област [0, 1] с малки стъпки
+    for (let coef = 0; coef < 1; coef += .01) {
+        // изчисляваме точката по сплайна за текущия коефициент
+        const pos = createVector(
+            calcSpline(spX, coef),
+            calcSpline(spY, coef));
+        // пращаме тази точка за изчетаване от p5.js
+        vertex(pos.x, pos.y);
+    }
+    endShape(); // приключваме със серията от точки
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
     startPos = createVector(0, 0);
-    destDir = createVector(0, 0);
+    startDir = createVector(0, 0);
     background(100);
 }
 
 function mousePressed() {
-    const newDestPos = createVector(mouseX, mouseY);
-    const offset = p5.Vector.sub(newDestPos, startPos);
-    const newDestDir = p5.Vector.mult(offset, 1.0);
+    const destPos = createVector(mouseX, mouseY);
+    const offset = p5.Vector.sub(destPos, startPos);
+    const destDir = p5.Vector.mult(offset, 1.0);
     splineX = {
         valueAt0: startPos.x,
-        valueAt1: newDestPos.x,
-        derAt0: destDir.x,
-        derAt1: newDestDir.x
+        valueAt1: destPos.x,
+        derAt0: startDir.x,
+        derAt1: destDir.x
     };
     splineY = {
         valueAt0: startPos.y,
-        valueAt1: newDestPos.y,
-        derAt0: destDir.y,
-        derAt1: newDestDir.y
+        valueAt1: destPos.y,
+        derAt0: startDir.y,
+        derAt1: destDir.y
     };
-    startPos = newDestPos;
-    destDir = newDestDir;
+    startPos = destPos;
+    startDir = destDir;
 
-    noFill();
-    stroke("white");
-    beginShape();
-    for (let coef = 0; coef < 1; coef += .01) {
-        const pos = createVector(
-            calcSpline(splineX, coef),
-            calcSpline(splineY, coef));
-        vertex(pos.x, pos.y);
-    }
-    endShape();
+    drawSpline(splineX, splineY);
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    background(100);
 }

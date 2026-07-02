@@ -6,16 +6,12 @@ let carPos;
 let carAngle;
 
 // изчислява стойността на сплайн функцията
-function calcSpline(s, t) {
-    const t2 = t * t; // t на квадрат
-    const t3 = t * t * t; // t на трета степен
-
-    const valueAt0Equals1 = 2 * t3 - 3 * t2 + 1;
-    const derAt0Equals1 = t3 - 2 * t2 + t;
-    const valueAt1Equals1 = -2 * t3 + 3 * t2;
-    const derAt1Equals1 = t3 - t2;
-
-    return valueAt0Equals1 * s.valueAt0 + derAt0Equals1 * s.derAt0 + valueAt1Equals1 * s.valueAt1 + derAt1Equals1 * s.derAt1;
+function calcSpline(s, x) {
+    const a = 2*s.valueAt0 - 2*s.valueAt1 + s.derAt0 + s.derAt1;
+    const b = -3*s.valueAt0 + 3*s.valueAt1 - 2*s.derAt0 - s.derAt1;
+    const c = s.derAt0;
+    const d = s.valueAt0;
+    return a * Math.pow(x, 3) + b * Math.pow(x, 2) + c * x + d;
 }
 
 async function setup() {
